@@ -269,23 +269,21 @@ const StudentList: React.FC<StudentListProps> = ({ refreshTrigger }) => {
         {students.length === 0 ? (
           <p className="text-center text-gray-500">No students found.</p>
         ) : (
-          <ScrollArea className="h-[500px]">
+          <div className="responsive-table">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <TableHead key={header.id}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
-                        </TableHead>
-                      )
-                    })}
+                    {headerGroup.headers.map((header) => (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    ))}
                   </TableRow>
                 ))}
               </TableHeader>
@@ -312,7 +310,7 @@ const StudentList: React.FC<StudentListProps> = ({ refreshTrigger }) => {
                 )}
               </TableBody>
             </Table>
-          </ScrollArea>
+          </div>
         )}
       </CardContent>
     </Card>
