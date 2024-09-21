@@ -1,7 +1,7 @@
-import dbConnect from '@/utils/dbConnects'
-import Student from '@/models/Student'
-import { NextResponse } from 'next/server'
-import { StudentCreateInput } from '@/types/students'
+import dbConnect from '@/utils/dbConnects';
+import Student from '@/models/Student';
+import { NextResponse } from 'next/server';
+import { StudentCreateInput } from '@/types/students';
 
 // Handle POST requests
 export async function POST(req: Request) {
@@ -11,8 +11,11 @@ export async function POST(req: Request) {
     const studentData: StudentCreateInput = await req.json();
     const student = await Student.create(studentData);
     return NextResponse.json({ success: true, data: student }, { status: 201 });
-  } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    }
+    return NextResponse.json({ success: false, error: 'An unknown error occurred' }, { status: 400 });
   }
 }
 
@@ -23,7 +26,10 @@ export async function GET() {
   try {
     const students = await Student.find({});
     return NextResponse.json({ success: true, data: students }, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    }
+    return NextResponse.json({ success: false, error: 'An unknown error occurred' }, { status: 400 });
   }
 }

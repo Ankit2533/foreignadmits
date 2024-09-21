@@ -1,13 +1,13 @@
 "use client";
-import { useState } from "react";
+// import { useState } from "react";
 import StudentForm from "@/components/StudentForm";
 
 
 export default function Home() {
-  const [refreshList, setRefreshList] = useState(false);
+  // const [refreshList, setRefreshList] = useState(false);
 
   const handleFormSubmit = () => {
-    setRefreshList((prev) => !prev);
+    // setRefreshList((prev) => !prev);
   };
 
   return (
