@@ -31,12 +31,16 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => mongoose);
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongooseInstance) => {
+      return mongooseInstance; // Return the full mongoose instance
+    });
   }
 
-  //cached.conn = await cached.promise;
-  global.mongoose = cached; // Cache the connection globally
+  cached.conn = (await cached.promise).connection; // Get the connection from the mongoose instance
+  global.mongoose = cached;
+
   return cached.conn;
 }
+
 
 export default dbConnect;
